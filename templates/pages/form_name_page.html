@@ -1,0 +1,24 @@
+
+{% extends "layout.html" %}
+
+{% block title %}
+Quize page
+{% endblock %}
+
+
+{% block body %}
+<H1>online quiz </H1>
+<div id="container">
+<form method="post">
+    {{form.as_p}}
+    {% csrf_token %}
+    <input type="submit" value="Enter Quiz">
+   <p>
+
+       {{ message }}
+   </p>
+
+</form>
+
+</div>
+{% endblock %}

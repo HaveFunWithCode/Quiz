@@ -1,4 +1,5 @@
-aftre migration please load myquestions.csv into pages_questions table
+aftre migration first of all run 'insert_questions_into_database.py' script to load myquestions.csv into pages_questions table
+
 
 -------------------------------------------------------------------------
 

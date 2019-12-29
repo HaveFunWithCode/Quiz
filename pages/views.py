@@ -3,13 +3,23 @@ import json
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
+from django.views.generic import TemplateView, ListView, DetailView
+
 from .models import Exam,Questions,User
 from . import forms
 from django.utils import timezone
 
-def index(request):
-    my_dict={'page_one_message':"This is a online quiz site"}
-    return render(request,'pages/index.html',context=my_dict)
+# def index(request):
+#     my_dict={'page_one_message':"This is a online quiz site"}
+#     return render(request,'pages/index.html',context=my_dict)
+
+class indexView(TemplateView):
+
+    template_name = "pages/index2.html"
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context['message']="This is a Template View With Context Argument"
+        return context
 
 def form_index_view(request):
     form=forms.FormName()
@@ -26,6 +36,30 @@ def form_index_view(request):
 
     return render(request,'pages/form_name_page.html',{'form':form})
 
+class viewQuestionDetail(DetailView):
+    model = Questions
+
+
+class viewListQuestions(ListView):
+
+    template_name = "pages/exam.html"
+    queryset = Questions.objects.order_by('?')[0:5]
+
+
+
+    def get_context_data(self, **kwargs):
+        # get url parameter in
+        username=self.kwargs['username']
+        userObj = User.objects.get(username=username)
+        exam = Exam(user=userObj, date=timezone.now(), answers='', score=0)
+
+        exam.save()
+        for q in self.queryset:
+            exam.questions.add(q)
+        context=super().get_context_data(**kwargs)
+
+        context['examid']=exam.id
+        return context
 
 
 

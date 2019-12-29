@@ -1,0 +1,16 @@
+{% extends "_layout.html" %}
+{% block body %}
+(your exam id is {{ examid }})
+    {% for q in questions_list %}
+        <div class="list-group">
+            <h3 class="list-group-item">{{ forloop.counter }}</h3>
+            <H4 class="list-group-item">{{q.text}}</H4>
+            <h5 class="list-group-item">1){{q.c1}}</h5>
+            <h5 class="list-group-item">2){{q.c2}}</h5>
+            <h5 class="list-group-item">3){{q.c3}}</h5>
+            <h5 class="list-group-item">4){{q.c4}}</h5>
+            <a href={{ q.pk }}>answer</a>
+        </div>
+    {% endfor %}
+
+{% endblock %}

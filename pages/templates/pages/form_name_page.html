@@ -8,11 +8,11 @@ Quize page
 
 {% block body %}
 <H1>online quiz </H1>
-<div id="container">
+<div  class="form-group align-self-center">
 <form method="post">
     {{form.as_p}}
     {% csrf_token %}
-    <input type="submit" value="Enter Quiz">
+    <input type="submit" value="Enter Quiz" class="btn btn-info ">
    <p>
 
        {{ message }}

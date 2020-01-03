@@ -9,19 +9,9 @@ from .models import Exam,Questions,User
 from . import forms
 from django.utils import timezone
 
-# def index(request):
-#     my_dict={'page_one_message':"This is a online quiz site"}
-#     return render(request,'pages/index.html',context=my_dict)
-
-class indexView(TemplateView):
-
-    template_name = "pages/index2.html"
-    def get_context_data(self, **kwargs):
-        context=super().get_context_data(**kwargs)
-        context['message']="This is a Template View With Context Argument"
-        return context
 
 def form_index_view(request):
+
     form=forms.FormName()
 
     if request.method=='POST':
@@ -32,9 +22,10 @@ def form_index_view(request):
                 return HttpResponseRedirect('exam/{0}'.format(username))
             else:
                 message="no such username!"
-                return render(request,'pages/form_name_page.html',{'form':form ,'message':message})
+                return render(request,'pages/form_login.html',{'form':form ,'message':message})
 
-    return render(request,'pages/form_name_page.html',{'form':form})
+    return render(request,'pages/form_login.html',{'form':form})
+
 
 class viewQuestionDetail(DetailView):
     model = Questions
@@ -44,8 +35,6 @@ class viewListQuestions(ListView):
 
     template_name = "pages/exam.html"
     queryset = Questions.objects.order_by('?')[0:5]
-
-
 
     def get_context_data(self, **kwargs):
         # get url parameter in
@@ -60,7 +49,6 @@ class viewListQuestions(ListView):
 
         context['examid']=exam.id
         return context
-
 
 
 class viewExam(View):

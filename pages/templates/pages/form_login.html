@@ -1,5 +1,4 @@
-
-{% extends "layout.html" %}
+{% extends "_layout.html" %}
 
 {% block title %}
 Quize page
@@ -10,6 +9,7 @@ Quize page
 <H1>online quiz </H1>
 <div  class="form-group align-self-center">
 <form method="post">
+    sdaf
     {{form.as_p}}
     {% csrf_token %}
     <input type="submit" value="Enter Quiz" class="btn btn-info ">
